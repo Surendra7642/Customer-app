@@ -1,13 +1,25 @@
 import {useRef,useState} from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const DeleteCustomers=()=>{
     const cid=useRef(0);
     const [res,setRes]=useState({});
+    const navigate=useNavigate();
     const del_record=()=>{
-        axios.delete(`http://localhost:2000/delete/${cid.current.value}`).then((posRes)=>{
+        axios.delete(`http://localhost:1900/delete/${cid.current.value}`).then((posRes)=>{
            const {data}=posRes;
            setRes(data);
-           document.write("<h1>Customer Deleted Successfully</h1>");
+       
+        if(data)
+        {
+              document.write("<h1>Customer Deleted Successfully</h1>");
+            navigate("/home")
+        }
+        else{
+            navigate("/error")
+        }
+        
+           
         },(errRes)=>{
             console.log(errRes);
         })

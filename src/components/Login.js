@@ -2,9 +2,10 @@ import { useRef,useState } from "react";
 import axios from "axios";
 const Login=()=>{
     const cid=useRef(0);
+    const cname=useRef("");
     const [arr,setArr]=useState({});
     const fetch=()=>{
-        axios.get(`http://localhost:2000/getOne/${cid.current.value}`).then((posRes)=>{
+        axios.get(`http://localhost:2000/getOne/${cid.current.value}/${cname.current.value}`).then((posRes)=>{
             const {data}=posRes;
             setArr(data);
         },(errRes)=>{
@@ -22,7 +23,13 @@ const Login=()=>{
                             <label>Customer Id:</label>
                             <input type={"number"} ref={cid}></input>
                         </div>
-                        <br></br><br></br>
+                        <br></br>
+                        <div className="form-group">
+                            <label>Customer Name:</label>
+                            <input type={"text"} ref={cname}></input>
+                        </div>
+                        <br></br>
+
                         
                         <div className="form-group">
                         <button className="btn btn-success" onClick={fetch}>Login Here</button>
